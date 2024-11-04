@@ -23,11 +23,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index").permitAll()
+                .antMatchers("/login", "/register").permitAll() // Разрешить доступ к страницам входа и регистрации для всех
+                .antMatchers("/admin/").hasRole("ADMIN")
+                .antMatchers("/user/").hasAnyRole("USER", "ADMIN")  // доступ для USER и ADMIN
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().successHandler(successUserHandler)
-                .permitAll()
+                .loginPage("/login") // Указываем путь к вашей кастомной странице входа
+                .permitAll() // Даем доступ к странице входа всем пользователям
                 .and()
                 .logout()
                 .permitAll();
@@ -44,6 +47,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .roles("USER")
                         .build();
 
-        return new InMemoryUserDetailsManager(user);
+        UserDetails admin =
+                User.withDefaultPasswordEncoder()
+                        .username("admin")
+                        .password("admin")
+                        .roles("ADMIN")
+                        .build();
+        return new InMemoryUserDetailsManager(user, admin);
     }
 }
