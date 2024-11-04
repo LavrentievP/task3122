@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.itmentor.spring.boot_security.demo.model.User;
 import ru.itmentor.spring.boot_security.demo.servise.PersServ;
 
-import javax.validation.Valid;
+
 
 
 @Controller
@@ -45,7 +45,7 @@ public class AuthController {
 
 
     @PostMapping()
-    public String create(@ModelAttribute("personCreated") @Valid User user, BindingResult bindingResult) {
+    public String create(@ModelAttribute("personCreated")  User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/new";
         }
@@ -60,7 +60,7 @@ public class AuthController {
     }
 
     @PostMapping("/{id}")
-    public String update(@ModelAttribute("personEdit") @Valid User user, BindingResult bindingResult,
+    public String update(@ModelAttribute("personEdit")  User user, BindingResult bindingResult,
                          @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
             return "/edit";

@@ -5,8 +5,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>2.6.2</version> <!-- или последняя версия 3.1.x, если готовы перейти на Spring Boot 3 -->
+		<relativePath/>
 	</parent>
 	<groupId>ru.itmentor</groupId>
 	<artifactId>spring-boot_security-demo</artifactId>
@@ -14,7 +14,7 @@
 	<name>spring-boot_security-demo</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>11</java.version>
 	</properties>
 	<dependencies>
 		<!-- Thymeleaf for templates -->
@@ -83,29 +83,14 @@
 		</dependency>
 
 		<!-- MySQL and PostgreSQL drivers -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
+
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
-
 		<!--Добавляю Swagger (Springfox или Springdoc), чтобы упростить взаимодействие с API и обеспечить его понятную документацию.-->
 		<!--		После добавления зависимости, Swagger UI будет доступен по адресу http://localhost:8080/swagger-ui.html (по умолчанию).-->
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.5.13</version>
-		</dependency>
 
-		<!--		Авторизация по токену-->
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.9.1</version>
-		</dependency>
 
 	</dependencies>
 
