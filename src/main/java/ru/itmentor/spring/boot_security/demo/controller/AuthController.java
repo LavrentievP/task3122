@@ -10,10 +10,12 @@ import ru.itmentor.spring.boot_security.demo.servise.PersServ;
 
 import javax.validation.Valid;
 
+
 @Controller
 public class AuthController {
 
-    private  PersServ service;
+    private PersServ service;
+
 
     @Autowired
     public AuthController(PersServ service) {
@@ -22,7 +24,6 @@ public class AuthController {
 
     @GetMapping("/admin")
     public String indexOfAllModel(Model model) {
-
         model.addAttribute("allPeople", service.upindex());
         return "/peoples";
     }
@@ -39,7 +40,7 @@ public class AuthController {
 
         model.addAttribute("personCreated", new User());
 
-        return"/new";
+        return "/new";
     }
 
 
@@ -76,7 +77,6 @@ public class AuthController {
     }
 
 
-
     @GetMapping("/login")
     public String showLoginPage() {
         return "login"; // Название HTML-файла без расширения
@@ -92,7 +92,7 @@ public class AuthController {
         return "user";
     }
 
-@GetMapping("/logout")
+    @GetMapping("/logout")
     public String logout() {
         return "redirect:/login";
     }
