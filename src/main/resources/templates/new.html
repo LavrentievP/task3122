@@ -16,6 +16,10 @@
 
     <div style="color: red" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}">Sex Error</div>
 
+    <input for="pass" th:field="*{pass}" id="password">
+
+    <div style="color: red" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}">Password Error</div>
+
 
 
     <br>

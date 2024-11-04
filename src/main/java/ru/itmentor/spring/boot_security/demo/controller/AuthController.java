@@ -92,5 +92,9 @@ public class AuthController {
         return "user";
     }
 
+@GetMapping("/logout")
+    public String logout() {
+        return "redirect:/login";
+    }
 
 }

@@ -12,6 +12,10 @@
     <input for="sex" th:field="*{sex}" id="sex" >
 
     <div style="color: red" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}">Sex Error</div>
+
+    <input for="pass" th:field="*{pass}" id="password">
+
+    <div style="color: red" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}">Pass Error</div>
     <br>
     <input type="submit" value="Update!"/>
 
