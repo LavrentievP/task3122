@@ -3,9 +3,9 @@ package ru.itmentor.spring.boot_security.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.itmentor.spring.boot_security.demo.model.Person;
+import ru.itmentor.spring.boot_security.demo.model.User;
 
 @Repository
-public interface PersDao extends JpaRepository<Person, Integer> {
+public interface PersDao extends JpaRepository<User, Integer> {
 
 }

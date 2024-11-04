@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.itmentor.spring.boot_security.demo.model.Person;
+import ru.itmentor.spring.boot_security.demo.model.User;
 import ru.itmentor.spring.boot_security.demo.servise.PersServ;
 
 import javax.validation.Valid;
@@ -37,18 +37,18 @@ public class AuthController {
     @GetMapping("/new")
     public String newPerson(Model model) {
 
-        model.addAttribute("personCreated", new Person());
+        model.addAttribute("personCreated", new User());
 
         return"/new";
     }
 
 
     @PostMapping()
-    public String create(@ModelAttribute("personCreated") @Valid Person person, BindingResult bindingResult) {
+    public String create(@ModelAttribute("personCreated") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/new";
         }
-        service.save(person);
+        service.save(user);
         return "redirect:/admin";
     }
 
@@ -59,13 +59,13 @@ public class AuthController {
     }
 
     @PostMapping("/{id}")
-    public String update(@ModelAttribute("personEdit") @Valid Person person, BindingResult bindingResult,
+    public String update(@ModelAttribute("personEdit") @Valid User user, BindingResult bindingResult,
                          @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
             return "/edit";
         }
 
-        service.update(id, person);
+        service.update(id, user);
         return "redirect:/admin";
     }
 

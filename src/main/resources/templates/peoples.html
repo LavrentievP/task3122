@@ -6,14 +6,14 @@
 </head>
 <body>
 
-<div th:each="person : ${allPeople}">
-    <a th:href="@{/{id}(id=${person.getId()})}" th:text="${person.getName()+' '+person.getSex()}" >person</a>
+<div th:each="user : ${allPeople}">
+    <a th:href="@{/{id}(id=${user.getId()})}" th:text="${user.getName()+' '+user.getSex()}" >user</a>
 </div>
 
 <br/>
 <hr/>
 
-<a th:href="@{/new}">Create new person</a>
+<a th:href="@{/new}">Create new user</a>
 
 </body>
 </html>

@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "person")
-public class Person {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +23,9 @@ public class Person {
     private String sex;
 
 
-    public Person() {}
+    public User() {}
 
-    public Person(int id, String name, String sex) {
+    public User(int id, String name, String sex) {
         this.id = id;
         this.name = name;
         this.sex = sex;

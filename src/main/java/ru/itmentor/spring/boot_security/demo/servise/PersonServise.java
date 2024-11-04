@@ -3,7 +3,7 @@ package ru.itmentor.spring.boot_security.demo.servise;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.itmentor.spring.boot_security.demo.model.Person;
+import ru.itmentor.spring.boot_security.demo.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,34 +19,34 @@ public class PersonServise implements PersServ {
 
     @Override
     @Transactional
-    public List<Person> upindex() {
-        return entityManager.createQuery("FROM Person", Person.class).getResultList();
+    public List<User> upindex() {
+        return entityManager.createQuery("FROM User", User.class).getResultList();
     }
 
     @Override
     @Transactional
-    public Person show(int id) {
-        return entityManager.find(Person.class, id);
+    public User show(int id) {
+        return entityManager.find(User.class, id);
     }
 
     @Override
     @Transactional
-    public void save(Person person) {
-        entityManager.persist(person);
+    public void save(User user) {
+        entityManager.persist(user);
     }
 
     @Override
     @Transactional
-    public void update(int id, Person updatedPerson) {
-        entityManager.merge(updatedPerson);
+    public void update(int id, User updatedUser) {
+        entityManager.merge(updatedUser);
     }
 
     @Override
     @Transactional
     public void delete(int id) {
-        Person person = entityManager.find(Person.class, id);
-        if (person != null) {
-            entityManager.remove(person);
+        User user = entityManager.find(User.class, id);
+        if (user != null) {
+            entityManager.remove(user);
 
         }
     }

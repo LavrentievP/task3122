@@ -2,19 +2,19 @@ package ru.itmentor.spring.boot_security.demo.servise;
 
 
 
-import ru.itmentor.spring.boot_security.demo.model.Person;
+import ru.itmentor.spring.boot_security.demo.model.User;
 
 import java.util.List;
 
 public interface PersServ {
 
-    public List<Person> upindex();
+    public List<User> upindex();
 
-    public Person show(int id);
+    public User show(int id);
 
-    public void save(Person person);
+    public void save(User user);
 
-    public void update(int id, Person updatedPerson);
+    public void update(int id, User updatedUser);
 
     public void delete(int id);
 
