@@ -87,10 +87,10 @@ public class AuthController {
         return "index";
     }
 
-    @GetMapping("/user")
+    @GetMapping("/user/{id}")
     public String showUserPage(@PathVariable("id") int id, Model model) {
         model.addAttribute("showUser", service.show(id));
-        return "/user";
+        return "user";
     }
 
     @GetMapping("/logout")
