@@ -1,10 +1,12 @@
 package ru.itmentor.spring.boot_security.demo.security;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.itmentor.spring.boot_security.demo.model.User;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class PersonDetails implements UserDetails {
@@ -17,17 +19,17 @@ public PersonDetails(User user) {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singletonList(new SimpleGrantedAuthority(user.getRole()));
     }
 
     @Override
     public String getPassword() {
-        return this.user.getPass();
+        return this.user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.user.getName();
+        return this.user.getUsername();
     }
 
     @Override
@@ -48,5 +50,9 @@ public PersonDetails(User user) {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public User getUser() {
+    return this.user;
     }
 }

@@ -23,8 +23,8 @@ public class DatabaseInitializer {
     @PostConstruct
     public void init() {
         List<User> users = Arrays.asList(
-                new User(0, "Alice", "Female", "password1"),
-                new User(0, "Bob", "Male", "password2"),
+                new User(0, "Alice", "Female", "password1", "ROLE_ADMIN"),
+                new User(0, "Bob", "Male", "password2", "ROLE_USER"),
                 new User(0, "Charlie", "Male", "password3"),
                 new User(0, "Diana", "Female", "password4"),
                 new User(0, "Edward", "Male", "password5"),

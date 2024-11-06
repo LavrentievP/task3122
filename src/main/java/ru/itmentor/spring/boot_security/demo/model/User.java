@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 
 @Data
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
@@ -18,12 +18,26 @@ public class User {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "sex")
     private String sex;
 
-    @Column(name = "pass")
-    private String pass;
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "role")
+    private String role;
+
+    public User() {
+    }
+
+    public User(int id,String username, String sex, String password) {
+        this.id = id;
+        this.username = username;
+        this.sex = sex;
+        this.password= password;
+    }
+
 }

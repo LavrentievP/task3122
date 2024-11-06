@@ -8,17 +8,17 @@
 
 <form th:method="POST" th:action="@{/}" th:object="${personCreated}">
 
-    <label for="name">Enter name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+    <label for="username">Enter name: </label>
+    <input type="text" th:field="*{username}" id="username"/>
+    <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</div>
 
     <input for="sex" th:field="*{sex}" id="sex" >
 
     <div style="color: red" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}">Sex Error</div>
 
-    <input for="pass" th:field="*{pass}" id="password">
+    <input for="password" th:field="*{password}" id="password">
 
-    <div style="color: red" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}">Password Error</div>
+    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
 
 
 
