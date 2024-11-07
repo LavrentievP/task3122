@@ -1,5 +1,6 @@
 package ru.itmentor.spring.boot_security.demo.configs;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -48,6 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
+                .httpBasic(Customizer.withDefaults())
                 .authorizeRequests()
                 .antMatchers("/login"/*, "/register"*/).permitAll() // Разрешить доступ к страницам входа и регистрации для всех
                 .antMatchers("/admin/").hasRole("ADMIN")
