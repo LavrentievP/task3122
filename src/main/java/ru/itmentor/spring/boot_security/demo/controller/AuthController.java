@@ -7,30 +7,29 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.itmentor.spring.boot_security.demo.model.User;
 import ru.itmentor.spring.boot_security.demo.servise.PersServ;
-
-
+import ru.itmentor.spring.boot_security.demo.servise.PersonServise;
 
 
 @Controller
 public class AuthController {
 
-    private PersServ service;
+    private final PersonServise personServise;
 
 
     @Autowired
-    public AuthController(PersServ service) {
-        this.service = service;
+    public AuthController(PersonServise personServise) {
+        this.personServise = personServise;
     }
 
     @GetMapping("/admin")
     public String indexOfAllModel(Model model) {
-        model.addAttribute("allPeople", service.upindex());
+        model.addAttribute("allPeople", personServise.upindex());
         return "/peoples";
     }
 
     @GetMapping("/{id}")
     public String showId(@PathVariable("id") int id, Model model) {
-        model.addAttribute("showPerson", service.show(id));
+        model.addAttribute("showPerson", personServise.show(id));
         return "/show";
 
     }
@@ -49,13 +48,13 @@ public class AuthController {
         if (bindingResult.hasErrors()) {
             return "/new";
         }
-        service.save(user);
+        personServise.save(user);
         return "redirect:/admin";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("personEdit", service.show(id));
+        model.addAttribute("personEdit", personServise.show(id));
         return "/edit";
     }
 
@@ -66,13 +65,13 @@ public class AuthController {
             return "/edit";
         }
 
-        service.update(id, user);
+        personServise.update(id, user);
         return "redirect:/admin";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        service.delete(id);
+        personServise.delete(id);
         return "redirect:/admin";
     }
 
@@ -89,7 +88,7 @@ public class AuthController {
 
     @GetMapping("/user/{id}")
     public String showUserPage(@PathVariable("id") int id, Model model) {
-        model.addAttribute("showUser", service.show(id));
+        model.addAttribute("showUser", personServise.show(id));
         return "user";
     }
 

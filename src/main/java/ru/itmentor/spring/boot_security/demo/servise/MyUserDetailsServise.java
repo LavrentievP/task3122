@@ -10,6 +10,7 @@ import ru.itmentor.spring.boot_security.demo.model.User;
 import ru.itmentor.spring.boot_security.demo.repository.UserRepository;
 import ru.itmentor.spring.boot_security.demo.security.PersonDetails;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,4 +34,25 @@ public class MyUserDetailsServise implements UserDetailsService {
         return new PersonDetails(user.get());
 
     }
+
+    public List<User> upindex() {
+        return userRepository.findAll();
+    }
+
+    public User show(int id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
+    public void update(int id, User updatedUser) {
+        userRepository.save(updatedUser);
+    }
+
+    public void delete(int id) {
+        userRepository.deleteById(id);
+    }
+
 }
