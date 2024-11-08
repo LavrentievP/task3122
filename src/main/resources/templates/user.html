@@ -1,18 +1,30 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
 </head>
 <body>
-<p th:text="${showUser.getId()}">VALUE</p>
-<p th:text="${showUser.getUsername()}">VALUE</p>
-<p th:text="${showUser.getSex()}">VALUE</p>
-<p th:text="${showUser.getPassword()}">VALUE</p>
-
+<h1>Your Profile</h1>
+<table th:border="3">
+    <thead>
+    <tr>
+        <th style="width: 25%; background: olivedrab">Username</th>
+        <th style="width: 25%; background: olivedrab">Sex</th>
+        <th style="width: 15%; background: olivedrab">Password</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td style="text-align: center; background: #d3ff88" th:text="${user.username}"></td>
+        <td style="text-align: center; background: #d3ff88" th:text="${user.sex}"></td>
+        <td style="text-align: center; background: #d3ff88" th:text="${user.password}"></td>
+    </tr>
+    </tbody>
+</table>
 <br/>
 <hr/>
 
 <a th:href="@{/logout}">Logout</a>
-
 </body>
 </html>

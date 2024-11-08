@@ -23,15 +23,15 @@ public class DatabaseInitializer {
     @PostConstruct
     public void init() {
         List<User> users = Arrays.asList(
-                new User(0, "Alice", "Female", "password1", "ROLE_ADMIN"),
-                new User(0, "Bob", "Male", "password2", "ROLE_USER"),
-                new User(0, "Charlie", "Male", "password3", "ROLE_USER")
+                new User(0, "Alina", "Female", "password1", "ROLE_USER"),
+                new User(0, "Bob", "Male", "password2", "ROLE_ADMIN"),
+                new User(0, "Charlie", "Male", "password3", "ROLE_USER"),
+                new User(0, "Diana", "Female", "password4", "ROLE_USER"),
+                new User(0, "Edward", "Male", "password5", "ROLE_USER"),
+                new User(0, "Fiona", "Female", "password6" , "ROLE_USER"),
+                new User(0, "George", "Male", "password7" , "ROLE_USER"),
+                new User(0, "Hannah", "Female", "password8" , "ROLE_USER")
 
-//                new User(0, "Diana", "Female", "password4", "ROLE_USER"),
-//                new User(0, "Edward", "Male", "password5", "ROLE_USER"),
-//                new User(0, "Fiona", "Female", "password6" , "ROLE_USER"),
-//                new User(0, "George", "Male", "password7" , "ROLE_USER"),
-//                new User(0, "Hannah", "Female", "password8" , "ROLE_USER"),
 //                new User(0, "Ian", "Male", "password9" , "ROLE_USER"),
 //                new User(0, "Julia", "Female", "password10" , "ROLE_USER"),
 //                new User(0, "Kevin", "Male", "password11" , "ROLE_USER"),

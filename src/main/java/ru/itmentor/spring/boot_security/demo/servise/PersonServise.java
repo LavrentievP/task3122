@@ -9,6 +9,7 @@ import ru.itmentor.spring.boot_security.demo.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonServise
@@ -42,7 +43,13 @@ public void delete(int id) {
     myUserDetailsServise.delete(id);
 }
 
+    public Optional<User> getUserById(int id) {
+        return myUserDetailsServise.getUserById(id);
+    }
 
+    public Optional<User> getUserByUsername(String userName) {
+        return myUserDetailsServise.getUserByUsername(userName);
+    }
 
 //    @PersistenceContext
 //    private EntityManager entityManager; ;

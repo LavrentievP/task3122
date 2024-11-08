@@ -55,4 +55,14 @@ public class MyUserDetailsServise implements UserDetailsService {
         userRepository.deleteById(id);
     }
 
+    public Optional<User> getUserById(int id) {
+        return userRepository.findById(id);
+    }
+
+    public Optional<User> getUserByUsername(String userName) {
+        return userRepository.findByUsername(userName);
+    }
+
+
+
 }

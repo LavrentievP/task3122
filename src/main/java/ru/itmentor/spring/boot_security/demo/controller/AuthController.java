@@ -1,6 +1,7 @@
 package ru.itmentor.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.itmentor.spring.boot_security.demo.model.User;
 import ru.itmentor.spring.boot_security.demo.servise.PersServ;
 import ru.itmentor.spring.boot_security.demo.servise.PersonServise;
+
+import java.util.Optional;
 
 
 @Controller
@@ -86,10 +89,17 @@ public class AuthController {
         return "index";
     }
 
-    @GetMapping("/user/{id}")
-    public String showUserPage(@PathVariable("id") int id, Model model) {
-        model.addAttribute("showUser", personServise.show(id));
-        return "user";
+
+    @GetMapping("/user")
+    public String getUserInfo(Authentication authentication, Model model) {
+        String userName = authentication.getName();
+        Optional<User> user = personServise.getUserByUsername(userName);
+        if (user.isPresent()) {
+            model.addAttribute("user", user.get());
+            return "user";
+        } else {
+            return "index";
+        }
     }
 
     @GetMapping("/logout")
