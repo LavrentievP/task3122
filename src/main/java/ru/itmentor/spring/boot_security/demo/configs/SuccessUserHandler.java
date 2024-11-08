@@ -24,10 +24,10 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
 //            if (principal instanceof UserDetails) {
 //                User user = ((PersonDetails) principal).getUser(); // Assuming your UserDetailService returns a PersonDetails object
 //                int userId = user.getId(); // Assuming User has an ID field
-                httpServletResponse.sendRedirect("/user" );
+                httpServletResponse.sendRedirect("/app/user" );
 
         } else if (roles.contains("ROLE_ADMIN")) {
-            httpServletResponse.sendRedirect("/admin");
+            httpServletResponse.sendRedirect("/app/admin");
             } else {
             httpServletResponse.sendRedirect("/");
         }
