@@ -3,22 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>User Profile</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: olivedrab;
+        }
+        td {
+            background-color: #d3ff88;
+        }
+        h1 {
+            text-align: center;
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 <h1>Your Profile</h1>
-<table th:border="3">
+<table>
     <thead>
     <tr>
-        <th style="width: 25%; background: olivedrab">Username</th>
-        <th style="width: 25%; background: olivedrab">Sex</th>
-        <th style="width: 15%; background: olivedrab">Password</th>
+        <th style="width: 25%;">Username</th>
+        <th style="width: 25%;">Sex</th>
+        <th style="width: 15%;">Change Password</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td style="text-align: center; background: #d3ff88" th:text="${user.username}"></td>
-        <td style="text-align: center; background: #d3ff88" th:text="${user.sex}"></td>
-        <td style="text-align: center; background: #d3ff88" th:text="${user.password}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.sex}"></td>
+        <td><a th:href="@{/change-password}">Change Password</a></td>
     </tr>
     </tbody>
 </table>

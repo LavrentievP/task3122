@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>All People</title>
+    <title>Admin Panel</title>
     <style>
         table {
             width: 100%;
@@ -11,10 +11,11 @@
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
+            text-align: center;
         }
         th {
-            background-color: #f2f2f2;
-            text-align: left;
+            background-color: #4CAF50;
+            color: white;
         }
         tr:hover {
             background-color: #f1f1f1;
@@ -22,7 +23,8 @@
     </style>
 </head>
 <body>
-<h1>All People</h1>
+<h1>Admin Panel</h1>
+
 <table>
     <thead>
     <tr>
@@ -47,10 +49,12 @@
             </form>
         </td>
     </tr>
-    <tr th:if="${#lists.isEmpty(allPeople)}">
-        <td colspan="5">Нет пользователей для отображения.</td>
-    </tr>
     </tbody>
 </table>
+
+<br/>
+<a th:href="@{/new}">Create New User</a>
+<br/>
+<a th:href="@{/logout}">Logout</a>
 </body>
 </html>

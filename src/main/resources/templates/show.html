@@ -12,7 +12,8 @@
 <p th:text="${showPerson.getPassword()}">VALUE</p>
 
 <a th:href="@{/{id}/edit(id=${showPerson.getId()})}">Edit</a>
-<form th:method="DELETE" th:action="@{/{id}(id=${showPerson.getId()})}">
+<form th:action="@{/{id}(id=${showPerson.getId()})}" method="post">
+    <input type="hidden" name="_method" value="delete"/>
     <input type="submit" value="Delete!"/>
 </form>
 

@@ -1,10 +1,5 @@
-package ru.itmentor.spring.boot_security.demo.servise;
+package ru.itmentor.spring.boot_security.demo.service;
 
-
-
-import ru.itmentor.spring.boot_security.demo.model.User;
-
-import java.util.List;
 
 public interface PersServ {
 

@@ -1,4 +1,4 @@
-package ru.itmentor.spring.boot_security.demo.servise;
+package ru.itmentor.spring.boot_security.demo.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MyUserDetailsServise implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
     @Autowired
-    public MyUserDetailsServise(UserRepository userRepository) {
+    public MyUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

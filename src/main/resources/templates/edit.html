@@ -2,25 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Update Person </title>
+    <title>Update Person</title>
 </head>
 <body>
-<form th:method="PATCH" th:action="@{/{id}(id=${personEdit.getId()})}" th:object="${personEdit}">
-    <label for="username">Enter name: </label>
-    <input type="text" th:field="*{username}" id="username"/>
-    <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</div>
-    <input for="sex" th:field="*{sex}" id="sex" >
+<h1>Редактирование пользователя</h1>
+<p>ID: <span th:text="${personEdit.id}"></span></p>
+<p>Имя: <span th:text="${personEdit.username}"></span></p>
+<p>Пол: <span th:text="${personEdit.sex}"></span></p>
+<p>Роль: <span th:text="${personEdit.role}"></span></p>
 
-    <div style="color: red" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}">Sex Error</div>
-
-    <input for="pass" th:field="*{password}" id="password">
-
-    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Pass Error</div>
-    <br>
-    <input type="submit" value="Update!"/>
-
-</form>
-
-
+<a href="/admin">Назад</a>
 </body>
 </html>

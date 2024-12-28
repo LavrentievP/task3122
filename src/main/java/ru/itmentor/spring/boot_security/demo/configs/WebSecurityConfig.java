@@ -9,11 +9,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 //import ru.itmentor.spring.boot_security.demo.security.AuthProviderImpl;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.itmentor.spring.boot_security.demo.security.AuthProviderImpl;
-import ru.itmentor.spring.boot_security.demo.servise.MyUserDetailsServise;
+import ru.itmentor.spring.boot_security.demo.service.MyUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -38,12 +36,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        return new BCryptPasswordEncoder();
 //    }
     private final SuccessUserHandler successUserHandler;
-    private final MyUserDetailsServise myUserDetailsServise;
+    private final MyUserDetailsService myUserDetailsService;
 
     @Autowired
-    public WebSecurityConfig(SuccessUserHandler successUserHandler, MyUserDetailsServise myUserDetailsServise) {
+    public WebSecurityConfig(SuccessUserHandler successUserHandler, MyUserDetailsService myUserDetailsService) {
         this.successUserHandler = successUserHandler;
-        this.myUserDetailsServise = myUserDetailsServise;
+        this.myUserDetailsService = myUserDetailsService;
     }
 
     @Override
@@ -67,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(myUserDetailsServise);
+        auth.userDetailsService(myUserDetailsService);
     }
 
 
