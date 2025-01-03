@@ -8,27 +8,27 @@ import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.itmentor.spring.boot_security.demo.model.User;
-import ru.itmentor.spring.boot_security.demo.service.PersonService;
+import ru.itmentor.spring.boot_security.demo.service.PersonServiceImpl;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@org.springframework.web.bind.annotation.RestController
 @RequestMapping("/app")
-public class MyRestController {
+public class RestController {
 
-    private final PersonService personService;
+    private final PersonServiceImpl personService;
 
     @Autowired
-    public MyRestController(PersonService personService) {
+    public RestController(PersonServiceImpl personService) {
         this.personService = personService;
     }
 
 
     @GetMapping("/admin")
-    public ResponseEntity<List<User>> upindex() {
-        List<User> allUsers = personService.upindex();
+    public ResponseEntity<List<User>> showAll() {
+        List<User> allUsers = personService.showAll();
         return ResponseEntity.ok(allUsers);
     }
 
@@ -48,12 +48,20 @@ public class MyRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
-    @DeleteMapping("/{id}")
+
+
+
+
+
+    @GetMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") int id) {
+        System.out.println("delete // метод удаления. id = " + id);
         personService.delete(id);
         return ResponseEntity.ok("User deleted");
-
     }
+
+
+
 
     @PutMapping("/user/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") int id,
@@ -64,6 +72,5 @@ public class MyRestController {
         personService.update(id, user);
         return ResponseEntity.ok(user);
     }
-
 }
 

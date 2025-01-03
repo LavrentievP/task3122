@@ -24,7 +24,7 @@ public class DatabaseInitializer {
     public void init() {
         List<User> users = Arrays.asList(
                 new User(0, "Alina", "Female", "password1", "ROLE_USER"),
-                new User(0, "Bob", "Male", "password2", "ROLE_ADMIN"),
+                new User(0, "Admin", "Male", "Admin", "ROLE_ADMIN"),
                 new User(0, "Charlie", "Male", "password3", "ROLE_USER"),
                 new User(0, "Diana", "Female", "password4", "ROLE_USER"),
                 new User(0, "Edward", "Male", "password5", "ROLE_USER"),

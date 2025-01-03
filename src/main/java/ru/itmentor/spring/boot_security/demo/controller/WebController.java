@@ -1,33 +1,31 @@
 package ru.itmentor.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.itmentor.spring.boot_security.demo.model.User;
-import ru.itmentor.spring.boot_security.demo.service.PersonService;
+import ru.itmentor.spring.boot_security.demo.service.PersonServiceImpl;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 
-@Controller
-public class AuthController {
+@org.springframework.stereotype.Controller
+@RequestMapping("/web")
+public class WebController {
 
-    private final PersonService personService;
+    private final PersonServiceImpl personService;
 
 
     @Autowired
-    public AuthController(PersonService personService) {
+    public WebController(PersonServiceImpl personService) {
         this.personService = personService;
     }
 
     @GetMapping("/admin")
     public String indexOfAllModel(Model model) {
-        model.addAttribute("allPeople", personService.upindex());
+        model.addAttribute("allPeople", personService.showAll());
         return "/peoples";
     }
 
@@ -40,9 +38,7 @@ public class AuthController {
 
     @GetMapping("/new")
     public String newPerson(Model model) {
-
         model.addAttribute("personCreated", new User());
-
         return "/new";
     }
 
@@ -53,20 +49,20 @@ public class AuthController {
             return "/new";
         }
         personService.save(user);
-        return "redirect:/admin";
+        return "redirect:/web/admin";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
         model.addAttribute("personEdit", personService.show(id));
-        return "/edit";
+        return "/web/edit";
     }
 
     @PostMapping("/{id}")
     public String update(@ModelAttribute("personEdit")  User user, BindingResult bindingResult,
                          @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
-            return "/edit";
+            return "/web/edit";
         }
 
         personService.update(id, user);
@@ -75,15 +71,12 @@ public class AuthController {
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
+        System.out.println("delete // метод удаления. id = " + id);
         personService.delete(id);
-        return "redirect:/admin";
+        return "redirect:/web/admin";
     }
 
 
-    @GetMapping("/login")
-    public String showLoginPage() {
-        return "login"; // Название HTML-файла без расширения
-    }
 
     @GetMapping("/index")
     public String showAdminPage() {
@@ -102,10 +95,4 @@ public class AuthController {
             return "index";
         }
     }
-
-    @GetMapping("/logout")
-    public String logout() {
-        return "redirect:/login";
-    }
-
 }

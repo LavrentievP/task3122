@@ -1,11 +1,11 @@
 package ru.itmentor.spring.boot_security.demo.service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import ru.itmentor.spring.boot_security.demo.exeptions.UserNotFoundException;
 import ru.itmentor.spring.boot_security.demo.model.User;
 import ru.itmentor.spring.boot_security.demo.repository.UserRepository;
 import ru.itmentor.spring.boot_security.demo.security.PersonDetails;
@@ -13,56 +13,62 @@ import ru.itmentor.spring.boot_security.demo.security.PersonDetails;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
-public class MyUserDetailsService implements UserDetailsService {
+public class PersonServiceImpl implements PersonService, UserDetailsService {
 
     private final UserRepository userRepository;
 
     @Autowired
-    public MyUserDetailsService(UserRepository userRepository) {
+    public PersonServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        Optional<User> user = userRepository.findByUsername(username);
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User not found");
-        }
-        return new PersonDetails(user.get());
-
-    }
-
-    public List<User> upindex() {
+    public List<User> showAll() {
         return userRepository.findAll();
     }
 
+    @Override
     public User show(int id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
+    @Override
     public void save(User user) {
         userRepository.save(user);
     }
 
+    @Override
     public void update(int id, User updatedUser) {
-        userRepository.save(updatedUser);
+        User existUser = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
+        existUser.setUsername(updatedUser.getUsername());
+        existUser.setSex(updatedUser.getSex());
+        existUser.setPassword(updatedUser.getPassword());
+        existUser.setRole(updatedUser.getRole());
+        userRepository.save(existUser);
     }
 
+    @Override
     public void delete(int id) {
         userRepository.deleteById(id);
-    }
-
-    public Optional<User> getUserById(int id) {
-        return userRepository.findById(id);
     }
 
     public Optional<User> getUserByUsername(String userName) {
         return userRepository.findByUsername(userName);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("User not found");
+        }
 
-
+        return new PersonDetails(user.get());
+    }
 }
+
+
+

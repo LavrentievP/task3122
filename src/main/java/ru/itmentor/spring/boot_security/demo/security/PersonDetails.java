@@ -7,7 +7,6 @@ import ru.itmentor.spring.boot_security.demo.model.User;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 public class PersonDetails implements UserDetails {
 private final User user;
@@ -15,7 +14,6 @@ private final User user;
 public PersonDetails(User user) {
     this.user = user;
 }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

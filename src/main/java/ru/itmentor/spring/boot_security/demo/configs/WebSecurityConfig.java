@@ -9,9 +9,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 //import ru.itmentor.spring.boot_security.demo.security.AuthProviderImpl;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.itmentor.spring.boot_security.demo.service.MyUserDetailsService;
+//import ru.itmentor.spring.boot_security.demo.service.MyUserDetailsService;
+import ru.itmentor.spring.boot_security.demo.service.PersonServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -36,12 +38,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        return new BCryptPasswordEncoder();
 //    }
     private final SuccessUserHandler successUserHandler;
-    private final MyUserDetailsService myUserDetailsService;
+    private final UserDetailsService userDetailsService;
+    private final PersonServiceImpl personService;
 
     @Autowired
-    public WebSecurityConfig(SuccessUserHandler successUserHandler, MyUserDetailsService myUserDetailsService) {
+    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserDetailsService myUserDetailsService, PersonServiceImpl personService) {
         this.successUserHandler = successUserHandler;
-        this.myUserDetailsService = myUserDetailsService;
+        this.userDetailsService = myUserDetailsService;
+        this.personService = personService;
     }
 
     @Override
@@ -65,7 +69,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(myUserDetailsService);
+//        auth.userDetailsService(myUserDetailsService);
+        auth.userDetailsService(personService);
     }
 
 
