@@ -28,7 +28,11 @@ public class WebController {
 
 
     @GetMapping("/admin")
-    public String showAllPage(Model model) {
+    public String showAllPage(Authentication authentication, Model model) {
+        String currentUserName = authentication.getName();
+        Optional<User> currentUser = personService.getUserByUsername(currentUserName);
+
+        model.addAttribute("currentUser", currentUser.get());
         model.addAttribute("allPeople", personService.showAll());
         return "/peoples";
     }

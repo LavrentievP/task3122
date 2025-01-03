@@ -20,7 +20,7 @@
             background-color: #f1f1f1;
         }
 
-        .create-button, .logout-button {
+        .create-button, .logout-button, .password-button {
             background-color: #4CAF50; /* Зеленый фон */
             color: white;            /* Белый текст */
             border: none;
@@ -29,6 +29,14 @@
             text-transform: uppercase;
             border-radius: 5px;      /* Скругленные углы */
             cursor: pointer;
+        }
+
+        .password-button {
+            background-color: #007BFF; /* Синий фон */
+        }
+
+        .password-button:hover {
+            background-color: #0056b3; /* Темнее синий */
         }
 
         .logout-button {
@@ -43,7 +51,7 @@
             background-color: #e53935; /* Темнее красный */
         }
 
-        .create-button:focus, .logout-button:focus {
+        .create-button:focus, .logout-button:focus, .password-button:focus {
             outline: none;           /* Убираем обводку при фокусе */
         }
 
@@ -62,6 +70,11 @@
     <!-- Кнопка Create -->
     <form th:action="@{/web/create}" method="get" style="display:inline;">
         <button type="submit" class="create-button">Create</button>
+    </form>
+
+    <!-- Кнопка для смены пароля -->
+    <form th:action="@{/web/change-password}" method="get" style="display:inline;">
+        <button type="submit" class="password-button">Сменить пароль текущего пользователя</button>
     </form>
 
     <!-- Кнопка Logout -->

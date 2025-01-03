@@ -10,6 +10,7 @@ import ru.itmentor.spring.boot_security.demo.model.User;
 import ru.itmentor.spring.boot_security.demo.repository.UserRepository;
 import ru.itmentor.spring.boot_security.demo.security.PersonDetails;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,9 @@ public class PersonServiceImpl implements PersonService, UserDetailsService {
 
     @Override
     public List<User> showAll() {
-        return userRepository.findAll();
+        return userRepository.findAll().stream()
+                .sorted(Comparator.comparingInt(User::getId))
+                .toList();
     }
 
     @Override
