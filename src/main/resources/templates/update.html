@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Update User</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+
+            label {
+                display: block;
+                margin: 10px 0 5px;
+            }
+
+            input, select, button {
+                padding: 10px;
+                margin-bottom: 15px;
+                width: 100%;
+                max-width: 300px;
+                box-sizing: border-box;
+            }
+
+            button {
+                cursor: pointer;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                text-transform: uppercase;
+            }
+
+            button:hover {
+                background-color: #45a049;
+            }
+
+            a {
+                display: inline-block;
+                margin-top: 20px;
+                color: #4CAF50;
+                text-decoration: none;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+
+<body>
+<h1>Редактирование пользователя</h1>
+
+<!-- Форма для обновления пользователя -->
+<form th:action="@{/web/{id}(id=${updatePerson.id})}" method="post">
+    <!-- Скрытое поле для метода PUT -->
+    <input type="hidden" name="_method" value="put"/>
+
+    <!-- ID (только для отображения, не редактируемое поле) -->
+    <label>ID:</label>
+    <input type="text" th:value="${updatePerson.id}" readonly/>
+
+    <!-- Имя пользователя -->
+    <label for="username">Имя пользователя:</label>
+    <input type="text" id="username" name="username" th:value="${updatePerson.username}" required/>
+
+    <!-- Пол -->
+    <label for="sex">Пол:</label>
+    <select id="sex" name="sex">
+        <option value="MALE" th:selected="${updatePerson.sex == 'MALE'}">Мужской</option>
+        <option value="FEMALE" th:selected="${updatePerson.sex == 'FEMALE'}">Женский</option>
+    </select>
+
+    <!-- Пароль -->
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" name="password" th:value="${updatePerson.password}" required/>
+
+    <!-- Роль -->
+    <label for="role">Роль:</label>
+    <input type="text" id="role" name="role" th:value="${updatePerson.role}" required/>
+    <br> <br> <br>
+
+    <!-- Кнопка сохранения -->
+    <button type="submit">Сохранить изменения</button>
+</form>
+
+<!-- Ссылка назад -->
+<a th:href="@{/web/admin}">Назад</a>
+
+</body>
+</html>

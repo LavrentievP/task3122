@@ -52,22 +52,28 @@ public class WebController {
         return "redirect:/web/admin";
     }
 
-    @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("personEdit", personService.show(id));
-        return "/web/edit";
+
+
+
+
+
+    @GetMapping("/update/{id}")
+    public String showUpdate(@PathVariable("id") int id, Model model) {
+        model.addAttribute("updatePerson", personService.show(id));
+        return "/update";
     }
 
-    @PostMapping("/{id}")
-    public String update(@ModelAttribute("personEdit")  User user, BindingResult bindingResult,
+    @PutMapping("/{id}")
+    public String update(@ModelAttribute("updatePerson") User user,
                          @PathVariable("id") int id) {
-        if (bindingResult.hasErrors()) {
-            return "/web/edit";
-        }
-
+        System.out.println("update // метод обновления. id = " + id + " , user = " + user);
         personService.update(id, user);
-        return "redirect:/admin";
+        return "redirect:/web/admin";
     }
+
+
+
+
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
@@ -75,6 +81,10 @@ public class WebController {
         personService.delete(id);
         return "redirect:/web/admin";
     }
+
+
+
+
 
 
 
