@@ -2,9 +2,12 @@ package ru.itmentor.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.itmentor.spring.boot_security.demo.model.PasswordDto;
 import ru.itmentor.spring.boot_security.demo.model.User;
 import ru.itmentor.spring.boot_security.demo.service.PersonServiceImpl;
 
@@ -25,20 +28,21 @@ public class WebController {
 
 
     @GetMapping("/admin")
-    public String showAll(Model model) {
+    public String showAllPage(Model model) {
         model.addAttribute("allPeople", personService.showAll());
         return "/peoples";
     }
 
+
     @GetMapping("/{id}")
-    public String showById(@PathVariable("id") int id, Model model) {
+    public String showByIdPage(@PathVariable("id") int id, Model model) {
         model.addAttribute("showPerson", personService.show(id));
         return "/show";
     }
 
 
     @GetMapping("/create")
-    public String showCreate(Model model) {
+    public String showCreatePage(Model model) {
         model.addAttribute("createPerson", new User());
         return "/create";
     }
@@ -51,7 +55,7 @@ public class WebController {
 
 
     @GetMapping("/update/{id}")
-    public String showUpdate(@PathVariable("id") int id, Model model) {
+    public String showUpdatePage(@PathVariable("id") int id, Model model) {
         model.addAttribute("updatePerson", personService.show(id));
         return "/update";
     }
@@ -73,8 +77,19 @@ public class WebController {
     }
 
 
+    @GetMapping("/change-password")
+    public String showChangePasswordForm(Model model) {
+        model.addAttribute("passwordDto", new PasswordDto()); // Передаем пустой объект DTO для формы
+        return "change-password"; // Имя шаблона для отображения формы
+    }
 
-
+    @PostMapping("/change-password")
+    public String сhangePassword(@ModelAttribute("passwordDto") PasswordDto passwordDto,
+                                 @AuthenticationPrincipal UserDetails currentUser) {
+        String username = currentUser.getUsername(); // Получаем имя текущего пользователя
+        personService.updatePassword(username, passwordDto.getNewPassword()); // Обновляем пароль
+        return "redirect:/web/user"; // Перенаправляем на страницу профиля пользователя
+    }
 
 
 
@@ -85,7 +100,7 @@ public class WebController {
 
 
     @GetMapping("/user")
-    public String getUserInfo(Authentication authentication, Model model) {
+    public String userInfoPage(Authentication authentication, Model model) {
         String userName = authentication.getName();
         Optional<User> user = personService.getUserByUsername(userName);
         if (user.isPresent()) {

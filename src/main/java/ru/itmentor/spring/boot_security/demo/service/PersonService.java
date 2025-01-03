@@ -15,4 +15,6 @@ public interface PersonService {
     void update(int id, User updatedUser);
 
     void delete(int id);
+
+    void updatePassword(String username, String password);
 }

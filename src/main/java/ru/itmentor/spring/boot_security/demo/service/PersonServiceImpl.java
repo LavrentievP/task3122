@@ -55,6 +55,14 @@ public class PersonServiceImpl implements PersonService, UserDetailsService {
         userRepository.deleteById(id);
     }
 
+    @Override
+    public void updatePassword(String username, String password) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден: " + username));
+        user.setPassword(password); // Кодируем новый пароль
+        userRepository.save(user); // Сохраняем изменения
+    }
+
     public Optional<User> getUserByUsername(String userName) {
         return userRepository.findByUsername(userName);
     }
