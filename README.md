@@ -1,5 +1,18 @@
 # Task-7
 
+---
+
+### Тестовые данные:
+
+Эндпоинт (_Endpoint_): [http://**localhost:8080/login**](http://localhost:8080/login)
+
+Логин: `Admin` // Пароль: `Admin` // Роль: `ROLE_ADMIN`
+
+Логин: `User` // Пароль: `User` // Роль: `ROLE_USER` 
+
+---
+
+
 ### Структура проекта:
 ```
 Directory structure:
