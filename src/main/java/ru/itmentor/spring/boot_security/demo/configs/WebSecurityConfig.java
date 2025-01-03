@@ -1,6 +1,6 @@
 package ru.itmentor.spring.boot_security.demo.configs;
+
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -8,38 +8,19 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-//import ru.itmentor.spring.boot_security.demo.security.AuthProviderImpl;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-//import ru.itmentor.spring.boot_security.demo.service.MyUserDetailsService;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import ru.itmentor.spring.boot_security.demo.service.PersonServiceImpl;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true) // Включает использование аннотаций @PreAuthorize и @PostAuthorize
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    private final AuthProviderImpl authProvider;
-//
-//    @Autowired
-//    public WebSecurityConfig(AuthProviderImpl authProvider) {
-//        this.authProvider = authProvider;
-//    }
-//
-//@Override
-//    protected void configure(AuthenticationManagerBuilder auth){
-//
-//        auth.authenticationProvider(authProvider);
-//    }
-//
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-    private final SuccessUserHandler successUserHandler;
-    private final UserDetailsService userDetailsService;
-    private final PersonServiceImpl personService;
+    private final SuccessUserHandler successUserHandler; // Обработчик успешной аутентификации
+    private final UserDetailsService userDetailsService; // Сервис для работы с пользовательскими данными
+    private final PersonServiceImpl personService; // Реализация пользовательского сервиса
 
     @Autowired
     public WebSecurityConfig(SuccessUserHandler successUserHandler, UserDetailsService myUserDetailsService, PersonServiceImpl personService) {
@@ -51,53 +32,36 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .httpBasic(Customizer.withDefaults())
+                .csrf().disable() // Отключает CSRF для упрощения (не рекомендуется для production)
                 .authorizeRequests()
-                .antMatchers("/login"/*, "/register"*/).permitAll() // Разрешить доступ к страницам входа и регистрации для всех
-                .antMatchers("/admin/").hasRole("ADMIN")
-                .antMatchers("/user/").hasAnyRole("USER", "ADMIN")  // доступ для USER и ADMIN
-                .anyRequest().authenticated()
+                .antMatchers("/login").permitAll() // Разрешаем всем доступ к странице входа
+                .antMatchers("/logout").permitAll() // Даем доступ к разлогиниванию всем пользователям
+                .antMatchers("/admin/**").hasRole("ADMIN") // Доступ к /admin только для роли ADMIN
+                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN") // Доступ к /user для USER и ADMIN
+                .anyRequest().authenticated() // Для всех остальных страниц требуется аутентификация
                 .and()
-                .formLogin().successHandler(successUserHandler)
-                .loginPage("/login") // Указываем путь к вашей кастомной странице входа
-                .permitAll() // Даем доступ к странице входа всем пользователям
+                .formLogin()
+                .loginPage("/login") // Указываем кастомную страницу входа
+                .successHandler(successUserHandler) // Указываем обработчик успешной аутентификации
+                .permitAll() // Даем доступ ко всем связанным с логином запросам
                 .and()
                 .logout()
-                .permitAll();
+                .logoutUrl("/logout") // Указываем URL для разлогинивания
+                .logoutSuccessUrl("/login") // Перенаправление на страницу входа после выхода
+                .invalidateHttpSession(true) // Аннулируем текущую сессию
+                .deleteCookies("JSESSIONID") // Удаляем куки после выхода
+                .permitAll(); // Доступ к разлогиниванию для всех
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(myUserDetailsService);
+        // Указываем кастомную реализацию UserDetailsService для аутентификации
         auth.userDetailsService(personService);
     }
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
+        // Используем простой кодировщик для паролей (для тестов, не рекомендуется для production)
         return NoOpPasswordEncoder.getInstance();
     }
-
-
-
-    // аутентификация inMemory
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//
-//        UserDetails admin =
-//                User.withDefaultPasswordEncoder()
-//                        .username("admin")
-//                        .password("admin")
-//                        .roles("ADMIN")
-//                        .build();
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }
 }

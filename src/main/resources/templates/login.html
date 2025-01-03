@@ -3,25 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .alert {
+            color: #fff;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .alert.error {
+            background-color: #f44336;
+        }
+
+        .alert.logout {
+            background-color: #4CAF50;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            margin-top: 15px;
+            color: #555;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-<div th:if="${param.error}">
-    <p>Неверный логин или пароль.</p>
-</div>
-<div th:if="${param.logout}">
-    <p>Вы вышли из системы.</p>
-</div>
-<form th:action="@{/login}" method="post">
-    <div>
-        <label for="username">Логин:</label>
-        <input type="text" id="username" name="username" required>
+<div class="login-container">
+    <h1>Вход в систему</h1>
+
+    <!-- Сообщение об ошибке -->
+    <div th:if="${param.error}" class="alert error">
+        Неверный логин или пароль.
     </div>
-    <div>
-        <label for="password">Пароль:</label>
-        <input type="password" id="password" name="password" required>
+
+    <!-- Сообщение о выходе -->
+    <div th:if="${param.logout}" class="alert logout">
+        Вы вышли из системы.
     </div>
-    <button type="submit">Войти</button>
-</form>
-<p>Нет аккаунта? <a href="/register">Зарегистрируйтесь</a></p>
+
+    <!-- Форма входа -->
+    <form th:action="@{/login}" method="post">
+        <div>
+            <label for="username">Логин:</label>
+            <input type="text" id="username" name="username" placeholder="Введите ваш логин" required>
+        </div>
+        <div>
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" placeholder="Введите ваш пароль" required>
+        </div>
+        <button type="submit">Войти</button>
+    </form>
+
+    <!-- Ссылка на регистрацию -->
+    <p>Нет аккаунта? <a th:href="@{/register}">Зарегистрируйтесь</a></p>
+</div>
 </body>
 </html>

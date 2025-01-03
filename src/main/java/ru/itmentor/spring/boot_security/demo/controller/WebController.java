@@ -23,31 +23,18 @@ public class WebController {
         this.personService = personService;
     }
 
+
     @GetMapping("/admin")
-    public String indexOfAllModel(Model model) {
+    public String showAll(Model model) {
         model.addAttribute("allPeople", personService.showAll());
         return "/peoples";
     }
 
     @GetMapping("/{id}")
-    public String showId(@PathVariable("id") int id, Model model) {
+    public String showById(@PathVariable("id") int id, Model model) {
         model.addAttribute("showPerson", personService.show(id));
         return "/show";
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @GetMapping("/create")

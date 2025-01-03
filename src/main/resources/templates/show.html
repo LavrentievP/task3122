@@ -2,20 +2,94 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Somebody</title>
+    <title>User Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .details {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button, a {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-right: 10px;
+            font-size: 16px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            color: white;
+            border-radius: 5px;
+        }
+
+        button.edit-button {
+            background-color: #4CAF50; /* Зеленый */
+        }
+
+        button.edit-button:hover {
+            background-color: #45a049;
+        }
+
+        button.delete-button {
+            background-color: #f44336; /* Красный */
+        }
+
+        button.delete-button:hover {
+            background-color: #e53935;
+        }
+
+        a.back-button {
+            background-color: #007BFF; /* Синий */
+        }
+
+        a.back-button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
 </head>
 <body>
 
-<p th:text="${showPerson.getId()}">VALUE</p>
-<p th:text="${showPerson.getUsername()}">VALUE</p>
-<p th:text="${showPerson.getSex()}">VALUE</p>
-<p th:text="${showPerson.getPassword()}">VALUE</p>
+<h1>Детали пользователя</h1>
 
-<a th:href="@{/{id}/edit(id=${showPerson.getId()})}">Edit</a>
-<form th:action="@{/{id}(id=${showPerson.getId()})}" method="post">
-    <input type="hidden" name="_method" value="delete"/>
-    <input type="submit" value="Delete!"/>
-</form>
+<div class="details">
+    <p><label>ID:</label> <span th:text="${showPerson.getId()}">VALUE</span></p>
+    <p><label>Имя пользователя:</label> <span th:text="${showPerson.getUsername()}">VALUE</span></p>
+    <p><label>Пол:</label> <span th:text="${showPerson.getSex()}">VALUE</span></p>
+    <p><label>Пароль:</label> <span th:text="${showPerson.getPassword()}">VALUE</span></p>
+    <p><label>Роль:</label> <span th:text="${showPerson.getRole()}">VALUE</span></p>
+</div>
+
+<div class="buttons">
+    <!-- Кнопка Edit -->
+    <form th:action="@{/web/update/{id}(id=${showPerson.getId()})}" method="get" style="display:inline;">
+        <button type="submit" class="edit-button">Edit</button>
+    </form>
+
+    <!-- Кнопка Delete -->
+    <form th:action="@{/web/{id}(id=${showPerson.getId()})}" method="post" style="display:inline;">
+        <input type="hidden" name="_method" value="delete" />
+        <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this user?');">Delete</button>
+    </form>
+
+    <!-- Кнопка Back -->
+    <a th:href="@{/web/admin}" class="back-button">Back</a>
+</div>
 
 </body>
 </html>
