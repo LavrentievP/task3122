@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+    <head>
     <meta charset="UTF-8">
     <title>All People</title>
     <style>
@@ -19,43 +19,70 @@
         tr:hover {
             background-color: #f1f1f1;
         }
+
+        /* Стили для кнопки Create */
+        .create-button {
+            background-color: #4CAF50; /* Зеленый фон */
+            color: white;            /* Белый текст */
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-transform: uppercase;
+            border-radius: 5px;      /* Скругленные углы */
+            cursor: pointer;
+        }
+
+        .create-button:hover {
+            background-color: #45a049; /* Темнее зеленый при наведении */
+        }
+
+        .create-button:focus {
+            outline: none;           /* Убираем обводку при фокусе */
+        }
     </style>
 </head>
-<body>
-<h1>All People</h1>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Sex</th>
-        <th>Role</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${allPeople}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.username}"></td>
-        <td th:text="${user.sex}"></td>
-        <td th:text="${user.role}"></td>
-        <td>
 
-            <form th:action="@{/web/update/{id}(id=${user.id})}" method="get" style="display:inline;">
-                <button type="submit">Edit</button>
-            </form>
+    <body>
+    <h1>All People</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Sex</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${allPeople}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.sex}"></td>
+            <td th:text="${user.role}"></td>
+            <td>
 
-            <form th:action="@{/web/{id}(id=${user.id})}" method="post" style="display:inline;">
-                <input type="hidden" name="_method" value="delete" />
-                <button type="submit" onclick="return confirm('Are you sure you want to delete this user?');">Delete</button>
-            </form>
+                <form th:action="@{/web/update/{id}(id=${user.id})}" method="get" style="display:inline;">
+                    <button type="submit">Edit</button>
+                </form>
 
-        </td>
-    </tr>
-    <tr th:if="${#lists.isEmpty(allPeople)}">
-        <td colspan="5">Нет пользователей для отображения.</td>
-    </tr>
-    </tbody>
-</table>
-</body>
+                <form th:action="@{/web/{id}(id=${user.id})}" method="post" style="display:inline;">
+                    <input type="hidden" name="_method" value="delete" />
+                    <button type="submit" onclick="return confirm('Are you sure you want to delete this user?');">Delete</button>
+                </form>
+
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(allPeople)}">
+            <td colspan="5">Нет пользователей для отображения.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Кнопка Create -->
+    <form th:action="@{/web/create}" method="get" style="display:inline;">
+        <button type="submit" class="create-button">Create</button>
+    </form>
+
+    </body>
 </html>

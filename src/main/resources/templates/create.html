@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Create User</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+
+            label {
+                display: block;
+                margin: 10px 0 5px;
+            }
+
+            input, select, button {
+                padding: 10px;
+                margin-bottom: 15px;
+                width: 100%;
+                max-width: 300px;
+                box-sizing: border-box;
+            }
+
+            button {
+                cursor: pointer;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                text-transform: uppercase;
+            }
+
+            button:hover {
+                background-color: #45a049;
+            }
+
+            a {
+                display: inline-block;
+                margin-top: 20px;
+                color: white;
+                background-color: #007BFF;
+                padding: 10px 15px;
+                border-radius: 5px;
+                text-decoration: none;
+                text-align: center;
+            }
+
+            a:hover {
+                background-color: #0056b3;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+
+<body>
+<h1>Создание нового пользователя</h1>
+
+<!-- Форма для создания нового пользователя -->
+<form th:action="@{/web}" method="post">
+    <!-- Имя пользователя -->
+    <label for="username">Имя пользователя:</label>
+    <input type="text" id="username" name="username" placeholder="Введите имя пользователя" required />
+
+    <!-- Пол -->
+    <label for="sex">Пол:</label>
+    <select id="sex" name="sex">
+        <option value="MALE">Мужской</option>
+        <option value="FEMALE">Женский</option>
+    </select>
+
+    <!-- Пароль -->
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" name="password" placeholder="Введите пароль" required />
+
+    <!-- Роль -->
+    <label for="role">Роль:</label>
+    <input type="text" id="role" name="role" placeholder="Введите роль" required />
+
+    <!-- Кнопка сохранения -->
+    <button type="submit">Создать пользователя</button>
+</form>
+
+<!-- Ссылка назад -->
+<a th:href="@{/web/admin}">Назад</a>
+
+</body>
+</html>

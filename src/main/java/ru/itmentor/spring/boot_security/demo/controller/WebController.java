@@ -36,25 +36,31 @@ public class WebController {
 
     }
 
-    @GetMapping("/new")
-    public String newPerson(Model model) {
-        model.addAttribute("personCreated", new User());
-        return "/new";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @GetMapping("/create")
+    public String showCreate(Model model) {
+        model.addAttribute("createPerson", new User());
+        return "/create";
     }
 
-
     @PostMapping()
-    public String create(@ModelAttribute("personCreated")  User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "/new";
-        }
+    public String create(@ModelAttribute("createPerson") User user) {
         personService.save(user);
         return "redirect:/web/admin";
     }
-
-
-
-
 
 
     @GetMapping("/update/{id}")
@@ -70,9 +76,6 @@ public class WebController {
         personService.update(id, user);
         return "redirect:/web/admin";
     }
-
-
-
 
 
     @DeleteMapping("/{id}")
